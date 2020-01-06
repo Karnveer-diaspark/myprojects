@@ -1,0 +1,39 @@
+
+
+ 
+<mat-toolbar>
+  <span>Login Form</span>
+</mat-toolbar>
+
+
+<mat-card class="example-card">
+
+<mat-card-content>
+<form class="example-form" [formGroup]= "login">
+  <table class="example-full-width" cellspacing="0" >
+    <tr>
+      <td>
+        <mat-form-field class="example-full-width">
+        <input matInput placeholder="Username" [(ngModel)]="username" formControlName="username" required>
+        <mat-error *ngIf="hasError('username', 'required')">Username is required</mat-error>
+        <mat-error *ngIf="hasError('username', 'maxlength')">You have more than 100 characters</mat-error>
+        <!-- <mat-error *ngIf="f.username.errors.required">Username is required</mat-error> -->
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Password" type="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" formControlName="password" required  />
+      <mat-error *ngIf="hasError('password', 'required') && f.password.errors.required">Password is required.</mat-error>
+        <mat-error *ngIf="hasError('password', 'maxlength')">You have more than 15 characters</mat-error>
+        
+    </mat-form-field></td>
+  </tr></table>
+</form>
+<mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+</mat-card-content>
+<mat-card-actions>
+<button mat-raised-button (click)="onSubmit(this.login.value)" color="primary">Login</button>
+</mat-card-actions>
+</mat-card>
+

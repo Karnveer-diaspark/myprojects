@@ -1,0 +1,8 @@
+
+<image-cropper [imageChangedEvent]="imageChangedEvent" outputType="both" [maintainAspectRatio]="true"
+        [aspectRatio]="4 / 3" [resizeToWidth]="128" format="png" (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+</image-cropper>
+
+
+<button type="submit" class="btn btn-outline-primary" name="upload" (click)="onSubmit()">Upload</button>

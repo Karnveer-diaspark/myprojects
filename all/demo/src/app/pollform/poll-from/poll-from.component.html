@@ -1,0 +1,102 @@
+<mat-toolbar>
+    <span>
+        <h5><strong>Create a Poll</strong></h5>
+    </span>
+</mat-toolbar>
+<br>
+<br>
+<br>
+<br>
+
+<form class="example-form" [formGroup]="pollform">
+
+    
+    <!-- <div class="form-group col-sm-12"> -->
+        
+
+    <div class="btn-group" data-toggle="buttons">
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" class="custom-control-input" id="defaultInline1" name="inlineDefaultRadiosExample"
+                value="Community" (click)=onSelect($event)>
+            <label class="custom-control-label" for="defaultInline1">In a Community</label>
+        </div>
+
+        <!-- Default inline 2-->
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" class="custom-control-input" id="defaultInline2" name="inlineDefaultRadiosExample"
+                value="Interest" (click)=onSelect($event)>
+            <label class="custom-control-label" for="defaultInline2">In an Area of Interest</label>
+        </div>
+    </div>
+
+
+
+    <input type="hidden" name="size" value="1000000">
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Community" required="" formControlName="Community">
+        <mat-error *ngIf="hasError('Community', 'required')">Community is required</mat-error>
+        <mat-error *ngIf="hasError('Community', 'maxlength')">You have more than 100 characters</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput class="mat-input-element mat-form-field-autofill-control ng-pristine ng-invalid ng-touched"
+            aria-required="true" required="" aria-invalid="true" placeholder="Area of Interest"
+            formControlName="AreaofInterest">
+        <mat-error *ngIf="hasError('AreaofInterest', 'required')">Area of Interest is required</mat-error>
+        <mat-error *ngIf="hasError('AreaofInterest', 'maxlength')">You have more than 100 characters</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <div class="mat-input-infix mat-form-field-infix">
+            <input matInput class="mat-input-element mat-form-field-autofill-control ng-pristine ng-invalid ng-touched"
+                aria-required="true" required="" maxlength="100" aria-invalid="true" placeholder="Poll Question"
+                formControlName="PollQuestion">
+            <mat-error *ngIf="hasError('PollQuestion', 'required') && f.PollQuestion.errors.required">Poll Question is required</mat-error>
+            <mat-error *ngIf="hasError('PollQuestion', 'maxlength')">You have more than 100 characters</mat-error>
+            <div class="option-event">
+                <div class="file-upload upload-drive ng-star-inserted">
+                    <label class="file-upload__label align" for="pollQusImg" mattooltipposition="right"
+                        aria-describedby="cdk-describedby-message-0" cdk-describedby-host="">
+                        <mat-icon aria-hidden="false" class="icon-image" (click)="openDialog()"></mat-icon>
+                    </label>
+                </div>
+            </div>
+            <ng-container *ngIf="">
+                <img [src]="croppedImage" alt="yes">
+            </ng-container>
+        </div>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Start date" formControlName="StartDate">
+        <mat-error *ngIf="hasError('StartDate', 'required')">Start date is required</mat-error>
+        <mat-error *ngIf="hasError('StartDate', 'maxlength')">You have more than 100 characters</mat-error>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker1" placeholder="End date" formControlName="EndDate">
+        <mat-error *ngIf="hasError('EndDate', 'required')">End date is required</mat-error>
+        <mat-error *ngIf="hasError('EndDate', 'maxlength')">You have more than 100 characters</mat-error>
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+
+    <button type="button" class="btn btn-outline-primary" (click)="onSubmit(this.pollform.value)">Publish</button>
+
+</form>
+<input type="hidden" name="size" value="1000000">
+<div>
+    <input id="pollQusImg" type="file" name="image" (change)="onFileSelected($event)" style="display: none">
+
+    <ng-container *ngIf="isImageSelected">
+        <app-image-preview [imageChangedEvent]="imageChangedEvent" (onUploaded)="onUpload($event)"
+            [selectedFile]="selectedFile">
+        </app-image-preview>
+    </ng-container>
+</div>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<!-- </div> -->
