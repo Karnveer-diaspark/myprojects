@@ -3,8 +3,23 @@ const User = require('../models/User')
 const auth = require('../middleware/auth')
 const router = express.Router()
 
+
+router.get('/users/getAll',async (req, res) => {
+    
+    try
+    {
+        let user = await User.find()
+        if(user.length){
+         res.send(user);
+         console.log("user",user)
+        }
+    }catch(error) {
+        res.status(500).send(error)       
+    }
+})
+
+ // Create a new user
 router.post('/users', async (req, res) => {
-    // Create a new user
     try {
         const user = new User(req.body)
         await user.save()
@@ -15,8 +30,8 @@ router.post('/users', async (req, res) => {
     }
 })
 
+ //Login a registered user
 router.post('/users/login', async (req, res) => {
-    //Login a registered user
     try {
         console.log(req.body)
         const { email, password } = req.body
@@ -65,13 +80,6 @@ router.get('/users/me', auth, async (req, res) => {
 })
 
 
-router.get('users/getAll', async (req, res) => {
-    console.log("in")
-    let user = User.find(req)
-    if (user.length) {
-        res.send(user);
-    }
-})
 
 
 
