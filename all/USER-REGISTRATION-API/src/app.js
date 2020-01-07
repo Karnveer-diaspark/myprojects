@@ -1,10 +1,13 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-// initialize our express app
+const express = require('express')
+const userRouter = require('./routers/user')
+require('dotenv').config()
+require('./db/db')
+const port = process.env.PORT
 const app = express()
 
-let port = 1234;
+app.use(express.json())
+app.use(userRouter)
 
 app.listen(port, () => {
-    console.log('Server is up and running on port numner ' + port);
-});
+    console.log(`Server running on port ${port}`)
+})

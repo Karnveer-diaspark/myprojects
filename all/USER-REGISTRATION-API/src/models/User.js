@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minLength: 7
+        minLength: 4
     },
     tokens: [{
         token: {
@@ -63,6 +63,12 @@ userSchema.statics.findByCredentials = async (email, password) => {
     }
     return user
 }
+userSchema.methods.findAllUser = async function() {
+    // Generate an auth token for the user
+    const user = await User.find();
+    return user
+}
+
 
 const User = mongoose.model('User', userSchema)
 
